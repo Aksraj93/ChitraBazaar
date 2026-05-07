@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ChitraBazaar — India's Photography Community</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #0f0d0a;
+    --cream: #faf6ef;
+    --saffron: #e8820c;
+    --saffron-light: #f5a93a;
+    --gold: #c9922a;
+    --deep: #1a160f;
+    --muted: #7a6e62;
+    --warm-mid: #3d3227;
+    --card-bg: #ffffff;
+    --border: rgba(201,146,42,0.2);
+    --shadow: 0 4px 40px rgba(15,13,10,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 72px;
+    background: rgba(250,246,239,0.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    animation: fadeDown 0.8s ease both;
+  }
+  @keyframes fadeDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem; font-weight: 700; color: var(--ink);
+    text-decoration: none; letter-spacing: -0.01em;
+  }
+  .nav-logo .dot { color: var(--saffron); }
+  .nav-logo .deva {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 0.85rem; color: var(--muted); font-weight: 400;
+    display: block; line-height: 1;
+  }
+  .nav-logo-wrap { display: flex; flex-direction: column; gap: 0; }
+
+  .nav-links { display: flex; align-items: center; gap: 2rem; }
+  .nav-links a {
+    text-decoration: none; color: var(--warm-mid);
+    font-size: 0.9rem; font-weight: 500; letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--saffron); }
+
+  .nav-cta-group { display: flex; gap: 0.75rem; align-items: center; }
+  .btn-outline {
+    padding: 0.5rem 1.2rem; border: 1.5px solid var(--gold);
+    color: var(--gold); background: transparent; border-radius: 6px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600;
+    cursor: pointer; transition: all 0.25s; white-space: nowrap;
+  }
+  .btn-outline:hover { background: var(--gold); color: #fff; }
+  .btn-primary {
+    padding: 0.5rem 1.4rem; background: var(--saffron);
+    color: #fff; border: none; border-radius: 6px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600;
+    cursor: pointer; transition: all 0.25s; white-space: nowrap;
+  }
+  .btn-primary:hover { background: var(--gold); transform: translateY(-1px); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 100px 5% 60px;
+    gap: 60px;
+    position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 70% 40%, rgba(232,130,12,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(232,130,12,0.1); border: 1px solid rgba(232,130,12,0.3);
+    color: var(--saffron); padding: 6px 14px; border-radius: 100px;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 1.5rem;
+    animation: fadeUp 0.9s 0.2s ease both;
+  }
+  .hero-tag .pulse {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--saffron);
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5.5vw, 5.5rem);
+    font-weight: 600; line-height: 1.06;
+    color: var(--ink); letter-spacing: -0.02em;
+    animation: fadeUp 0.9s 0.3s ease both;
+  }
+  .hero-title em { font-style: italic; color: var(--saffron); }
+  .hero-title .block { display: block; }
+
+  .hero-subtitle {
+    margin-top: 1.5rem; max-width: 480px;
+    font-size: 1.05rem; color: var(--muted); line-height: 1.7;
+    animation: fadeUp 0.9s 0.45s ease both;
+  }
+
+  .hero-actions {
+    margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.9s 0.55s ease both;
+  }
+  .btn-hero-primary {
+    padding: 0.9rem 2.2rem; background: var(--saffron); color: #fff;
+    border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(232,130,12,0.35);
+  }
+  .btn-hero-primary:hover { transform: translateY(-2px); background: var(--gold); box-shadow: 0 8px 28px rgba(232,130,12,0.4); }
+  .btn-hero-outline {
+    padding: 0.9rem 2rem; background: transparent;
+    border: 1.5px solid var(--warm-mid); color: var(--warm-mid);
+    border-radius: 8px; font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 500; cursor: pointer; transition: all 0.3s;
+  }
+  .btn-hero-outline:hover { border-color: var(--saffron); color: var(--saffron); }
+
+  .hero-stats {
+    margin-top: 3rem; display: flex; gap: 2.5rem;
+    animation: fadeUp 0.9s 0.7s ease both;
+  }
+  .stat-item { display: flex; flex-direction: column; gap: 2px; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 2rem;
+    font-weight: 700; color: var(--ink); letter-spacing: -0.02em;
+  }
+  .stat-label { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
+
+  /* Hero visual side */
+  .hero-visual {
+    position: relative; animation: fadeUp 0.9s 0.4s ease both;
+  }
+  .photo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 12px;
+  }
+  .photo-card {
+    border-radius: 14px; overflow: hidden; position: relative;
+    box-shadow: var(--shadow);
+  }
+  .photo-card:nth-child(1) { grid-row: span 2; }
+
+  .photo-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block; transition: transform 0.6s ease;
+  }
+  .photo-card:hover img { transform: scale(1.04); }
+
+  .photo-card-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 12px 14px;
+    background: linear-gradient(to top, rgba(15,13,10,0.82) 0%, transparent 100%);
+    color: #fff;
+  }
+  .photo-card-name { font-size: 0.8rem; font-weight: 600; }
+  .photo-card-city { font-size: 0.7rem; opacity: 0.7; }
+
+  .hero-badge {
+    position: absolute; top: -14px; right: -14px;
+    background: var(--saffron); color: #fff; border-radius: 50%;
+    width: 72px; height: 72px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem; font-weight: 600; text-align: center; line-height: 1.2;
+    box-shadow: 0 4px 20px rgba(232,130,12,0.4);
+  }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ─── MARQUEE STRIP ─── */
+  .marquee-strip {
+    background: var(--deep); padding: 14px 0; overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .marquee-inner {
+    display: flex; gap: 3rem; white-space: nowrap;
+    animation: marquee 28s linear infinite;
+  }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .marquee-item {
+    display: flex; align-items: center; gap: 0.7rem;
+    color: rgba(255,255,255,0.55); font-size: 0.82rem;
+    font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .marquee-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--saffron); }
+
+  /* ─── SECTION COMMONS ─── */
+  section { padding: 90px 5%; }
+  .section-label {
+    display: inline-block;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--saffron);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    font-weight: 600; line-height: 1.1;
+    color: var(--ink); letter-spacing: -0.02em;
+  }
+  .section-title em { font-style: italic; color: var(--saffron); }
+  .section-subtitle {
+    font-size: 1rem; color: var(--muted); line-height: 1.7;
+    max-width: 520px; margin-top: 0.8rem;
+  }
+  .section-header { margin-bottom: 3.5rem; }
+
+  /* ─── HOW IT WORKS ─── */
+  .how-section { background: var(--deep); color: #fff; }
+  .how-section .section-label { color: var(--saffron-light); }
+  .how-section .section-title { color: #fff; }
+  .how-section .section-subtitle { color: rgba(255,255,255,0.5); }
+
+  .how-tabs {
+    display: flex; gap: 0; margin-bottom: 3rem;
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+    overflow: hidden; width: fit-content;
+  }
+  .how-tab {
+    padding: 0.75rem 1.8rem; background: transparent;
+    color: rgba(255,255,255,0.45); border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+    transition: all 0.2s;
+  }
+  .how-tab.active { background: var(--saffron); color: #fff; }
+
+  .how-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+  }
+  .how-step {
+    padding: 2rem; background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07); border-radius: 14px;
+    transition: all 0.3s; position: relative;
+  }
+  .how-step:hover { background: rgba(255,255,255,0.07); transform: translateY(-4px); }
+  .how-step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem; font-weight: 700; color: rgba(232,130,12,0.2);
+    line-height: 1; margin-bottom: 1.2rem;
+  }
+  .how-step-icon {
+    font-size: 1.8rem; margin-bottom: 0.8rem;
+  }
+  .how-step h3 {
+    font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: 0.6rem;
+  }
+  .how-step p { font-size: 0.86rem; color: rgba(255,255,255,0.45); line-height: 1.6; }
+  .step-arrow {
+    position: absolute; right: -18px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--saffron); font-size: 1.2rem; z-index: 1;
+  }
+  .how-step:last-child .step-arrow { display: none; }
+
+  /* ─── PHOTOGRAPHERS ─── */
+  .photographers-section { background: var(--cream); }
+  .section-header-row {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 3rem;
+  }
+  .filter-pills {
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+  }
+  .pill {
+    padding: 0.45rem 1.1rem; border-radius: 100px;
+    font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all 0.2s;
+    border: 1.5px solid var(--border); background: transparent; color: var(--warm-mid);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .pill.active, .pill:hover { background: var(--saffron); color: #fff; border-color: var(--saffron); }
+
+  .photographers-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .pg-card {
+    background: var(--card-bg); border-radius: 16px; overflow: hidden;
+    box-shadow: var(--shadow); border: 1px solid var(--border);
+    transition: all 0.35s; cursor: pointer;
+  }
+  .pg-card:hover { transform: translateY(-6px); box-shadow: 0 12px 50px rgba(15,13,10,0.12); }
+
+  .pg-card-photo {
+    position: relative; height: 220px; overflow: hidden;
+    background: #e8dfd0;
+  }
+  .pg-card-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .pg-card:hover .pg-card-photo img { transform: scale(1.05); }
+  .pg-card-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--saffron); color: #fff; border-radius: 6px;
+    padding: 3px 10px; font-size: 0.7rem; font-weight: 600;
+  }
+  .pg-card-verified {
+    position: absolute; top: 12px; right: 12px;
+    background: rgba(15,13,10,0.7); color: #fff; border-radius: 6px;
+    padding: 3px 10px; font-size: 0.7rem; font-weight: 500;
+    display: flex; align-items: center; gap: 4px;
+  }
+
+  .pg-card-body { padding: 1.2rem 1.4rem 1.4rem; }
+  .pg-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 600; color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .pg-card-meta { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+  .pg-card-city { font-size: 0.8rem; color: var(--muted); display: flex; align-items: center; gap: 3px; }
+  .pg-card-sep { color: var(--border); }
+  .pg-card-exp { font-size: 0.8rem; color: var(--muted); }
+
+  .pg-card-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .tag {
+    font-size: 0.72rem; padding: 3px 10px; border-radius: 100px;
+    background: rgba(232,130,12,0.08); color: var(--saffron);
+    border: 1px solid rgba(232,130,12,0.2); font-weight: 500;
+  }
+
+  .pg-card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--border); padding-top: 0.9rem;
+  }
+  .pg-card-price { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--ink); }
+  .pg-card-price span { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; color: var(--muted); font-weight: 400; }
+  .pg-card-stars { display: flex; align-items: center; gap: 4px; font-size: 0.82rem; color: var(--gold); font-weight: 600; }
+
+  .pg-card-btn {
+    width: 100%; margin-top: 1rem; padding: 0.65rem;
+    background: transparent; border: 1.5px solid var(--gold); color: var(--gold);
+    border-radius: 8px; font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.25s;
+  }
+  .pg-card-btn:hover { background: var(--saffron); border-color: var(--saffron); color: #fff; }
+
+  /* ─── NICHES ─── */
+  .niches-section { background: #fdf9f4; }
+  .niches-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+  .niche-card {
+    border-radius: 16px; overflow: hidden; position: relative;
+    height: 240px; cursor: pointer;
+    transition: all 0.35s;
+  }
+  .niche-card:nth-child(1) { grid-column: span 2; height: 300px; }
+  .niche-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+  .niche-card:hover img { transform: scale(1.06); }
+  .niche-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(160deg, rgba(15,13,10,0.15) 0%, rgba(15,13,10,0.75) 100%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 1.6rem;
+  }
+  .niche-label { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--saffron-light); font-weight: 600; margin-bottom: 0.3rem; }
+  .niche-title { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 600; color: #fff; line-height: 1.1; }
+  .niche-count { font-size: 0.78rem; color: rgba(255,255,255,0.55); margin-top: 0.3rem; }
+  .niche-card:nth-child(1) .niche-title { font-size: 2.4rem; }
+
+  .niche-explore {
+    position: absolute; top: 1.2rem; right: 1.2rem;
+    background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.2); color: #fff;
+    padding: 6px 14px; border-radius: 100px; font-size: 0.72rem; font-weight: 500;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .niche-card:hover .niche-explore { opacity: 1; }
+
+  /* ─── COMMUNITY ─── */
+  .community-section {
+    background: var(--ink); color: #fff;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .community-section .section-label { color: var(--saffron-light); }
+  .community-section .section-title { color: #fff; margin-bottom: 1.2rem; }
+  .community-section .section-subtitle { color: rgba(255,255,255,0.5); margin-bottom: 2rem; }
+
+  .community-features { display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 2.5rem; }
+  .comm-feat {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1rem 1.2rem; border-radius: 12px;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s;
+  }
+  .comm-feat:hover { background: rgba(255,255,255,0.08); }
+  .comm-feat-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+  .comm-feat h4 { font-size: 0.9rem; font-weight: 600; color: #fff; margin-bottom: 2px; }
+  .comm-feat p { font-size: 0.8rem; color: rgba(255,255,255,0.45); line-height: 1.5; }
+
+  .community-visual { position: relative; }
+  .feed-mockup {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px; padding: 1.5rem; overflow: hidden;
+  }
+  .feed-post {
+    background: rgba(255,255,255,0.06); border-radius: 12px;
+    padding: 1rem; margin-bottom: 1rem;
+    border: 1px solid rgba(255,255,255,0.05);
+    animation: fadeUp 0.8s ease both;
+  }
+  .feed-post:nth-child(2) { animation-delay: 0.15s; }
+  .feed-post:nth-child(3) { animation-delay: 0.3s; }
+  .feed-post-header { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.8rem; }
+  .feed-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--saffron), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.8rem; color: #fff;
+  }
+  .feed-name { font-size: 0.82rem; font-weight: 600; color: #fff; }
+  .feed-time { font-size: 0.7rem; color: rgba(255,255,255,0.35); }
+  .feed-img {
+    width: 100%; height: 120px; border-radius: 8px;
+    background: linear-gradient(135deg, #2a1f0f, #3d2d15);
+    margin-bottom: 0.7rem; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem;
+  }
+  .feed-actions { display: flex; gap: 1rem; }
+  .feed-action { font-size: 0.75rem; color: rgba(255,255,255,0.4); display: flex; align-items: center; gap: 4px; cursor: pointer; transition: color 0.2s; }
+  .feed-action:hover { color: var(--saffron-light); }
+
+  /* ─── PRICING ─── */
+  .pricing-section { background: var(--cream); }
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .pricing-card {
+    background: var(--card-bg); border-radius: 20px;
+    padding: 2.2rem; border: 1.5px solid var(--border);
+    transition: all 0.35s; position: relative;
+  }
+  .pricing-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+  .pricing-card.featured {
+    background: var(--deep); border-color: var(--saffron);
+    color: #fff;
+  }
+  .pricing-card.featured .pricing-desc { color: rgba(255,255,255,0.5); }
+  .pricing-card.featured .pricing-feature { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.08); }
+
+  .pricing-popular {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: var(--saffron); color: #fff; padding: 4px 16px; border-radius: 100px;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; white-space: nowrap;
+  }
+  .pricing-plan { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--saffron); margin-bottom: 0.5rem; }
+  .pricing-card.featured .pricing-plan { color: var(--saffron-light); }
+  .pricing-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem; font-weight: 700; color: var(--ink); line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .pricing-card.featured .pricing-price { color: #fff; }
+  .pricing-price sup { font-size: 1.4rem; }
+  .pricing-price sub { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 400; color: var(--muted); }
+  .pricing-card.featured .pricing-price sub { color: rgba(255,255,255,0.4); }
+  .pricing-desc { font-size: 0.84rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.5; }
+
+  .pricing-features { display: flex; flex-direction: column; gap: 0; margin-bottom: 2rem; }
+  .pricing-feature {
+    display: flex; align-items: center; gap: 0.7rem;
+    padding: 0.65rem 0; font-size: 0.85rem; color: var(--warm-mid);
+    border-bottom: 1px solid var(--border);
+  }
+  .pricing-feature:last-child { border-bottom: none; }
+  .check { color: var(--saffron); font-weight: 700; }
+  .check-dim { color: rgba(150,140,130,0.5); }
+
+  .pricing-btn {
+    width: 100%; padding: 0.85rem; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600;
+    cursor: pointer; transition: all 0.25s;
+  }
+  .pricing-btn-outline { background: transparent; border: 1.5px solid var(--gold); color: var(--gold); }
+  .pricing-btn-outline:hover { background: var(--gold); color: #fff; }
+  .pricing-btn-filled { background: var(--saffron); border: 1.5px solid var(--saffron); color: #fff; }
+  .pricing-btn-filled:hover { background: var(--gold); border-color: var(--gold); }
+
+  /* ─── TESTIMONIALS ─── */
+  .testimonials-section { background: #fdf9f4; }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .testi-card {
+    background: #fff; border-radius: 16px; padding: 1.8rem;
+    border: 1px solid var(--border); box-shadow: var(--shadow);
+    transition: all 0.3s;
+  }
+  .testi-card:hover { transform: translateY(-4px); }
+  .testi-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 1rem; letter-spacing: 2px; }
+  .testi-quote {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.15rem;
+    font-weight: 400; color: var(--ink); line-height: 1.6;
+    margin-bottom: 1.4rem; font-style: italic;
+  }
+  .testi-author { display: flex; align-items: center; gap: 0.8rem; }
+  .testi-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--saffron), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; color: #fff; font-size: 0.9rem; flex-shrink: 0;
+  }
+  .testi-name { font-size: 0.88rem; font-weight: 600; color: var(--ink); }
+  .testi-role { font-size: 0.75rem; color: var(--muted); }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    background: var(--saffron); color: #fff; text-align: center;
+    padding: 80px 5%;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: 'चित्र';
+    position: absolute; font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 20rem; font-weight: 600; color: rgba(255,255,255,0.05);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    pointer-events: none; white-space: nowrap;
+  }
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 600;
+    line-height: 1.1; margin-bottom: 1rem; letter-spacing: -0.02em;
+  }
+  .cta-subtitle { font-size: 1.05rem; opacity: 0.8; margin-bottom: 2.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .cta-btn-white {
+    padding: 0.9rem 2.2rem; background: #fff; color: var(--saffron);
+    border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s;
+  }
+  .cta-btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .cta-btn-border {
+    padding: 0.9rem 2rem; background: transparent;
+    border: 2px solid rgba(255,255,255,0.6); color: #fff;
+    border-radius: 8px; font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 500; cursor: pointer; transition: all 0.3s;
+  }
+  .cta-btn-border:hover { border-color: #fff; background: rgba(255,255,255,0.12); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--deep); color: rgba(255,255,255,0.5);
+    padding: 60px 5% 30px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; margin-bottom: 3rem;
+  }
+  .footer-brand {}
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.8rem;
+    font-weight: 700; color: #fff; margin-bottom: 0.8rem; display: block;
+  }
+  .footer-logo .dot { color: var(--saffron); }
+  .footer-desc { font-size: 0.84rem; line-height: 1.7; max-width: 260px; }
+  .footer-socials { display: flex; gap: 0.7rem; margin-top: 1.2rem; }
+  .social-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; cursor: pointer; transition: all 0.2s;
+    color: rgba(255,255,255,0.5); text-decoration: none;
+  }
+  .social-icon:hover { background: var(--saffron); color: #fff; border-color: var(--saffron); }
+
+  .footer-col h4 { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 1rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .footer-col ul li a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--saffron-light); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 1.5rem; display: flex; justify-content: space-between;
+    align-items: center; font-size: 0.78rem; flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-lang {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 6px;
+    font-size: 0.78rem; cursor: pointer;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 120px; }
+    .hero-visual { display: none; }
+    .how-steps { grid-template-columns: repeat(2, 1fr); }
+    .photographers-grid { grid-template-columns: repeat(2, 1fr); }
+    .niches-grid { grid-template-columns: 1fr 1fr; }
+    .niche-card:nth-child(1) { grid-column: span 2; }
+    .community-section { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 680px) {
+    .nav-links { display: none; }
+    .how-steps { grid-template-columns: 1fr; }
+    .photographers-grid { grid-template-columns: 1fr; }
+    .niches-grid { grid-template-columns: 1fr; }
+    .niche-card:nth-child(1) { grid-column: span 1; }
+    .hero-stats { gap: 1.5rem; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .section-header-row { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-wrap">
+      <span>ChitraBazaar<span class="dot">.</span></span>
+      <span class="deva">चित्रबाज़ार</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#photographers">Photographers</a>
+    <a href="#niches">Niches</a>
+    <a href="#community">Community</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#">Blog</a>
+  </div>
+  <div class="nav-cta-group">
+    <button class="btn-outline">Post a Job</button>
+    <button class="btn-primary">Join Free →</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag"><span class="pulse"></span> India's #1 Photography Marketplace</div>
+    <h1 class="hero-title">
+      <span class="block">Where <em>Indian</em></span>
+      <span class="block">Photography</span>
+      <span class="block">Comes Alive</span>
+    </h1>
+    <p class="hero-subtitle">Connect with 50,000+ verified photographers across India. From grand weddings to brand campaigns — find, hire, and collaborate on ChitraBazaar.</p>
+    <div class="hero-actions">
+      <button class="btn-hero-primary">Find a Photographer</button>
+      <button class="btn-hero-outline">Join as Photographer</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">50K+</span>
+        <span class="stat-label">Photographers</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">500+</span>
+        <span class="stat-label">Cities Covered</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">₹2Cr+</span>
+        <span class="stat-label">Paid Out</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">4.9★</span>
+        <span class="stat-label">Avg Rating</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="photo-grid">
+      <div class="photo-card" style="height:380px;">
+        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=500&q=80" alt="Wedding photography" />
+        <div class="photo-card-overlay">
+          <div class="photo-card-name">Arjun Mehta</div>
+          <div class="photo-card-city">📍 Jaipur, Rajasthan</div>
+        </div>
+      </div>
+      <div class="photo-card" style="height:184px;">
+        <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?w=400&q=80" alt="Landscape" />
+        <div class="photo-card-overlay">
+          <div class="photo-card-name">Priya Sharma</div>
+          <div class="photo-card-city">📍 Manali, HP</div>
+        </div>
+      </div>
+      <div class="photo-card" style="height:184px;">
+        <img src="https://images.unsplash.com/photo-1465056836041-7f43ac27dcb5?w=400&q=80" alt="Portrait" />
+        <div class="photo-card-overlay">
+          <div class="photo-card-name">Kavitha Nair</div>
+          <div class="photo-card-city">📍 Kochi, Kerala</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-badge">✦<br/>Verified<br/>Pro</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span class="marquee-item"><span class="marquee-dot"></span> Wedding Photography</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Corporate Shoots</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Fashion & Editorial</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Wildlife Photography</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Product Photography</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Real Estate</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Documentary</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Bollywood & OTT</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Street Photography</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Mehendi & Sangeet</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="marquee-item"><span class="marquee-dot"></span> Wedding Photography</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Corporate Shoots</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Fashion & Editorial</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Wildlife Photography</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Product Photography</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Real Estate</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Documentary</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Bollywood & OTT</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Street Photography</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Mehendi & Sangeet</span>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="section-header reveal">
+    <div class="section-label">Simple Process</div>
+    <h2 class="section-title">How <em>ChitraBazaar</em> Works</h2>
+    <p class="section-subtitle">Whether you're a photographer building your career or a business seeking talent — getting started takes minutes.</p>
+  </div>
+
+  <div class="how-tabs">
+    <button class="how-tab active" onclick="switchTab(this,'client')">I'm a Client</button>
+    <button class="how-tab" onclick="switchTab(this,'photographer')">I'm a Photographer</button>
+  </div>
+
+  <div class="how-steps" id="how-steps-client">
+    <div class="how-step reveal">
+      <div class="how-step-num">01</div>
+      <div class="how-step-icon">🔍</div>
+      <h3>Search & Filter</h3>
+      <p>Browse 50,000+ photographers by city, niche, budget range (₹), and availability. Use India-specific filters.</p>
+      <span class="step-arrow">→</span>
+    </div>
+    <div class="how-step reveal" style="transition-delay:0.1s">
+      <div class="how-step-num">02</div>
+      <div class="how-step-icon">📋</div>
+      <h3>Post Your Brief</h3>
+      <p>Describe your event, date, location, and budget. Get quotes from multiple photographers within hours.</p>
+      <span class="step-arrow">→</span>
+    </div>
+    <div class="how-step reveal" style="transition-delay:0.2s">
+      <div class="how-step-num">03</div>
+      <div class="how-step-icon">💬</div>
+      <h3>Chat & Finalise</h3>
+      <p>Negotiate, review portfolios, compare packages and lock in your photographer with a digital contract.</p>
+      <span class="step-arrow">→</span>
+    </div>
+    <div class="how-step reveal" style="transition-delay:0.3s">
+      <div class="how-step-num">04</div>
+      <div class="how-step-icon">💳</div>
+      <h3>Pay via UPI / Razorpay</h3>
+      <p>Secure milestone-based payments. GST-compliant invoices auto-generated. Full refund protection.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTOGRAPHERS -->
+<section class="photographers-section" id="photographers">
+  <div class="section-header-row reveal">
+    <div>
+      <div class="section-label">Verified Talent</div>
+      <h2 class="section-title">Featured <em>Photographers</em></h2>
+    </div>
+    <div class="filter-pills">
+      <button class="pill active">All</button>
+      <button class="pill">Wedding</button>
+      <button class="pill">Corporate</button>
+      <button class="pill">Fashion</button>
+      <button class="pill">Wildlife</button>
+    </div>
+  </div>
+
+  <div class="photographers-grid">
+
+    <div class="pg-card reveal">
+      <div class="pg-card-photo">
+        <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=500&q=80" alt="Rohan Kapoor" />
+        <div class="pg-card-badge">Wedding</div>
+        <div class="pg-card-verified">✦ Verified</div>
+      </div>
+      <div class="pg-card-body">
+        <div class="pg-card-name">Rohan Kapoor</div>
+        <div class="pg-card-meta">
+          <span class="pg-card-city">📍 Delhi NCR</span>
+          <span class="pg-card-sep">·</span>
+          <span class="pg-card-exp">8 yrs exp</span>
+        </div>
+        <div class="pg-card-tags">
+          <span class="tag">Wedding</span>
+          <span class="tag">Portraits</span>
+          <span class="tag">Sangeet</span>
+        </div>
+        <div class="pg-card-footer">
+          <div class="pg-card-price">₹25,000 <span>/ day</span></div>
+          <div class="pg-card-stars">★ 4.9 <span style="color:var(--muted);font-weight:400;">(124)</span></div>
+        </div>
+        <button class="pg-card-btn">View Portfolio →</button>
+      </div>
+    </div>
+
+    <div class="pg-card reveal" style="transition-delay:0.1s">
+      <div class="pg-card-photo">
+        <img src="https://images.unsplash.com/photo-1508921234172-b68ed335b3e6?w=500&q=80" alt="Ananya Iyer" />
+        <div class="pg-card-badge">Fashion</div>
+        <div class="pg-card-verified">✦ Verified</div>
+      </div>
+      <div class="pg-card-body">
+        <div class="pg-card-name">Ananya Iyer</div>
+        <div class="pg-card-meta">
+          <span class="pg-card-city">📍 Mumbai</span>
+          <span class="pg-card-sep">·</span>
+          <span class="pg-card-exp">6 yrs exp</span>
+        </div>
+        <div class="pg-card-tags">
+          <span class="tag">Fashion</span>
+          <span class="tag">Editorial</span>
+          <span class="tag">Brands</span>
+        </div>
+        <div class="pg-card-footer">
+          <div class="pg-card-price">₹18,000 <span>/ day</span></div>
+          <div class="pg-card-stars">★ 4.8 <span style="color:var(--muted);font-weight:400;">(89)</span></div>
+        </div>
+        <button class="pg-card-btn">View Portfolio →</button>
+      </div>
+    </div>
+
+    <div class="pg-card reveal" style="transition-delay:0.2s">
+      <div class="pg-card-photo">
+        <img src="https://images.unsplash.com/photo-1574180566232-aaad1b5b8450?w=500&q=80" alt="Suresh Pillai" />
+        <div class="pg-card-badge">Wildlife</div>
+        <div class="pg-card-verified">✦ Verified</div>
+      </div>
+      <div class="pg-card-body">
+        <div class="pg-card-name">Suresh Pillai</div>
+        <div class="pg-card-meta">
+          <span class="pg-card-city">📍 Bengaluru</span>
+          <span class="pg-card-sep">·</span>
+          <span class="pg-card-exp">12 yrs exp</span>
+        </div>
+        <div class="pg-card-tags">
+          <span class="tag">Wildlife</span>
+          <span class="tag">Nature</span>
+          <span class="tag">Documentary</span>
+        </div>
+        <div class="pg-card-footer">
+          <div class="pg-card-price">₹30,000 <span>/ day</span></div>
+          <div class="pg-card-stars">★ 5.0 <span style="color:var(--muted);font-weight:400;">(211)</span></div>
+        </div>
+        <button class="pg-card-btn">View Portfolio →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;margin-top:2.5rem;">
+    <button class="btn-outline" style="padding:0.8rem 2.5rem;font-size:0.95rem;">Browse All Photographers →</button>
+  </div>
+</section>
+
+<!-- NICHES -->
+<section class="niches-section" id="niches">
+  <div class="section-header reveal">
+    <div class="section-label">Explore Categories</div>
+    <h2 class="section-title">Photography <em>For Every</em> Occasion</h2>
+    <p class="section-subtitle">From grand Baraat processions to Bollywood sets — India's most diverse photography marketplace.</p>
+  </div>
+
+  <div class="niches-grid">
+    <div class="niche-card reveal">
+      <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=900&q=80" alt="Wedding" />
+      <div class="niche-overlay">
+        <span class="niche-label">Most Popular</span>
+        <div class="niche-title">Wedding & Shaadi</div>
+        <div class="niche-count">18,400+ Photographers Available</div>
+      </div>
+      <span class="niche-explore">Explore →</span>
+    </div>
+    <div class="niche-card reveal" style="transition-delay:0.1s">
+      <img src="https://images.unsplash.com/photo-1504270997636-07ddfbd48945?w=500&q=80" alt="Corporate" />
+      <div class="niche-overlay">
+        <span class="niche-label">Business</span>
+        <div class="niche-title">Corporate & Brand</div>
+        <div class="niche-count">9,200+ Photographers</div>
+      </div>
+      <span class="niche-explore">Explore →</span>
+    </div>
+    <div class="niche-card reveal" style="transition-delay:0.15s">
+      <img src="https://images.unsplash.com/photo-1465056836041-7f43ac27dcb5?w=500&q=80" alt="Fashion" />
+      <div class="niche-overlay">
+        <span class="niche-label">Style</span>
+        <div class="niche-title">Fashion & Editorial</div>
+        <div class="niche-count">6,700+ Photographers</div>
+      </div>
+      <span class="niche-explore">Explore →</span>
+    </div>
+    <div class="niche-card reveal" style="transition-delay:0.2s">
+      <img src="https://images.unsplash.com/photo-1574180566232-aaad1b5b8450?w=500&q=80" alt="Wildlife" />
+      <div class="niche-overlay">
+        <span class="niche-label">Nature</span>
+        <div class="niche-title">Wildlife & Nature</div>
+        <div class="niche-count">4,100+ Photographers</div>
+      </div>
+      <span class="niche-explore">Explore →</span>
+    </div>
+    <div class="niche-card reveal" style="transition-delay:0.25s">
+      <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?w=500&q=80" alt="Travel" />
+      <div class="niche-overlay">
+        <span class="niche-label">Explore India</span>
+        <div class="niche-title">Travel & Landscape</div>
+        <div class="niche-count">7,500+ Photographers</div>
+      </div>
+      <span class="niche-explore">Explore →</span>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section class="community-section" id="community">
+  <div>
+    <div class="section-label">Community Hub</div>
+    <h2 class="section-title">More Than a <em>Marketplace</em></h2>
+    <p class="section-subtitle">ChitraBazaar is a living community — share your work, join challenges, find mentors, and grow your craft with photographers across Bharat.</p>
+
+    <div class="community-features">
+      <div class="comm-feat">
+        <div class="comm-feat-icon">🏆</div>
+        <div>
+          <h4>Monthly Photo Contests</h4>
+          <p>Themes like Holi, Monsoon Rains, Street Life of India. Win cash prizes and recognition.</p>
+        </div>
+      </div>
+      <div class="comm-feat">
+        <div class="comm-feat-icon">🎓</div>
+        <div>
+          <h4>Mentorship Program</h4>
+          <p>Book 1-on-1 sessions with India's top photographers. Learn editing, business, and more.</p>
+        </div>
+      </div>
+      <div class="comm-feat">
+        <div class="comm-feat-icon">💬</div>
+        <div>
+          <h4>Discussion Forums</h4>
+          <p>Gear advice, client management, legal help, editing workflows — all in regional languages.</p>
+        </div>
+      </div>
+      <div class="comm-feat">
+        <div class="comm-feat-icon">📸</div>
+        <div>
+          <h4>Photo Feed</h4>
+          <p>Share your latest shots, get genuine feedback, and build your audience organically.</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-hero-primary">Join the Community →</button>
+  </div>
+
+  <div class="community-visual">
+    <div class="feed-mockup">
+      <div style="font-size:0.78rem;color:rgba(255,255,255,0.3);margin-bottom:1rem;letter-spacing:0.08em;text-transform:uppercase;">Live Feed</div>
+      <div class="feed-post">
+        <div class="feed-post-header">
+          <div class="feed-avatar">AK</div>
+          <div>
+            <div class="feed-name">Arjun Kapoor</div>
+            <div class="feed-time">2 min ago · Delhi</div>
+          </div>
+        </div>
+        <div class="feed-img">🌅</div>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:0.6rem;">Golden hour at Humayun's Tomb. Shot on 85mm f/1.4 ✨</div>
+        <div class="feed-actions">
+          <span class="feed-action">♥ 142</span>
+          <span class="feed-action">💬 28</span>
+          <span class="feed-action">↗ Share</span>
+        </div>
+      </div>
+      <div class="feed-post">
+        <div class="feed-post-header">
+          <div class="feed-avatar" style="background:linear-gradient(135deg,#c53030,#e05252);">PS</div>
+          <div>
+            <div class="feed-name">Priya Sharma</div>
+            <div class="feed-time">15 min ago · Jaipur</div>
+          </div>
+        </div>
+        <div class="feed-img">🌺</div>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:0.6rem;">My latest wedding candid from Samode Palace 💍</div>
+        <div class="feed-actions">
+          <span class="feed-action">♥ 318</span>
+          <span class="feed-action">💬 54</span>
+          <span class="feed-action">↗ Share</span>
+        </div>
+      </div>
+      <div class="feed-post">
+        <div class="feed-post-header">
+          <div class="feed-avatar" style="background:linear-gradient(135deg,#2d5a27,#4a8c42);">KN</div>
+          <div>
+            <div class="feed-name">Kavitha Nair</div>
+            <div class="feed-time">1 hr ago · Kochi</div>
+          </div>
+        </div>
+        <div class="feed-img">🐘</div>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:0.6rem;">Thrissur Pooram — nothing compares to this chaos! 🎺</div>
+        <div class="feed-actions">
+          <span class="feed-action">♥ 891</span>
+          <span class="feed-action">💬 103</span>
+          <span class="feed-action">↗ Share</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="section-header reveal" style="text-align:center;max-width:600px;margin:0 auto 4rem;">
+    <div class="section-label">Plans for Photographers</div>
+    <h2 class="section-title">Grow Your <em>Career</em> With Us</h2>
+    <p class="section-subtitle">Start free, upgrade when you're ready. All plans include access to the community.</p>
+  </div>
+
+  <div class="pricing-grid">
+    <div class="pricing-card reveal">
+      <div class="pricing-plan">Starter</div>
+      <div class="pricing-price"><sup>₹</sup>0<sub>/mo</sub></div>
+      <div class="pricing-desc">Perfect for getting started. Build your profile and explore the community.</div>
+      <div class="pricing-features">
+        <div class="pricing-feature"><span class="check">✓</span> 5 Portfolio Images</div>
+        <div class="pricing-feature"><span class="check">✓</span> Basic Profile</div>
+        <div class="pricing-feature"><span class="check">✓</span> Community Access</div>
+        <div class="pricing-feature"><span class="check-dim">✕</span> Job Applications</div>
+        <div class="pricing-feature"><span class="check-dim">✕</span> Analytics Dashboard</div>
+      </div>
+      <button class="pricing-btn pricing-btn-outline">Get Started Free</button>
+    </div>
+
+    <div class="pricing-card featured reveal" style="transition-delay:0.1s">
+      <div class="pricing-popular">Most Popular</div>
+      <div class="pricing-plan">Pro</div>
+      <div class="pricing-price"><sup>₹</sup>699<sub>/mo</sub></div>
+      <div class="pricing-desc">Everything you need to land clients and grow your photography business.</div>
+      <div class="pricing-features">
+        <div class="pricing-feature"><span class="check">✓</span> 100 Portfolio Images</div>
+        <div class="pricing-feature"><span class="check">✓</span> Verified Badge</div>
+        <div class="pricing-feature"><span class="check">✓</span> Unlimited Job Applications</div>
+        <div class="pricing-feature"><span class="check">✓</span> Analytics Dashboard</div>
+        <div class="pricing-feature"><span class="check">✓</span> Priority Search Ranking</div>
+      </div>
+      <button class="pricing-btn pricing-btn-filled">Start Pro Plan →</button>
+    </div>
+
+    <div class="pricing-card reveal" style="transition-delay:0.2s">
+      <div class="pricing-plan">Studio</div>
+      <div class="pricing-price"><sup>₹</sup>1,999<sub>/mo</sub></div>
+      <div class="pricing-desc">For photography agencies and studios managing multiple shooters.</div>
+      <div class="pricing-features">
+        <div class="pricing-feature"><span class="check">✓</span> Unlimited Portfolio</div>
+        <div class="pricing-feature"><span class="check">✓</span> Up to 10 Team Members</div>
+        <div class="pricing-feature"><span class="check">✓</span> GST Invoice Automation</div>
+        <div class="pricing-feature"><span class="check">✓</span> Dedicated Account Manager</div>
+        <div class="pricing-feature"><span class="check">✓</span> Featured Homepage Slot</div>
+      </div>
+      <button class="pricing-btn pricing-btn-outline">Contact Sales →</button>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="section-header reveal" style="text-align:center;max-width:600px;margin:0 auto 3.5rem;">
+    <div class="section-label">Real Stories</div>
+    <h2 class="section-title">Loved Across <em>India</em></h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"Found my wedding photographer in Jaipur within 2 hours of posting my brief. The whole process was seamless — from negotiation to UPI payment. Absolute lifesaver!"</div>
+      <div class="testi-author">
+        <div class="testi-avatar">NK</div>
+        <div>
+          <div class="testi-name">Neha Khanna</div>
+          <div class="testi-role">Bride, Jaipur · Wedding Client</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal" style="transition-delay:0.1s">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"As a freelance photographer in Pune, ChitraBazaar doubled my bookings in 3 months. The Pro plan paid for itself with my first gig. The community forums are gold."</div>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,#2563eb,#1d4ed8);">RD</div>
+        <div>
+          <div class="testi-name">Rahul Desai</div>
+          <div class="testi-role">Photographer, Pune · 5 yrs experience</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal" style="transition-delay:0.2s">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"We hire photographers across 12 cities for our brand campaigns. ChitraBazaar's verified network and GST invoicing made our procurement team very happy!"</div>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,#7c3aed,#5b21b6);">SM</div>
+        <div>
+          <div class="testi-name">Sneha Murthy</div>
+          <div class="testi-role">Marketing Head, Bengaluru Brand</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="cta-title">India's Photography Story<br/>Starts Here</h2>
+  <p class="cta-subtitle">Join 50,000+ photographers and thousands of happy clients building India's most vibrant creative marketplace.</p>
+  <div class="cta-buttons">
+    <button class="cta-btn-white">Join as Photographer</button>
+    <button class="cta-btn-border">Hire a Photographer</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="footer-logo">ChitraBazaar<span class="dot">.</span></span>
+      <p class="footer-desc">India's premier photography community and marketplace. Connecting talent with opportunity across Bharat since 2024.</p>
+      <div class="footer-socials">
+        <a class="social-icon" href="#" title="Instagram">📷</a>
+        <a class="social-icon" href="#" title="Twitter">🐦</a>
+        <a class="social-icon" href="#" title="YouTube">▶️</a>
+        <a class="social-icon" href="#" title="LinkedIn">💼</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>For Photographers</h4>
+      <ul>
+        <li><a href="#">Create Portfolio</a></li>
+        <li><a href="#">Pro Plans</a></li>
+        <li><a href="#">Photography Contests</a></li>
+        <li><a href="#">Mentorship</a></li>
+        <li><a href="#">Photography Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>For Clients</h4>
+      <ul>
+        <li><a href="#">Find Photographers</a></li>
+        <li><a href="#">Post a Job</a></li>
+        <li><a href="#">How Hiring Works</a></li>
+        <li><a href="#">Payment & Safety</a></li>
+        <li><a href="#">Enterprise</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About ChitraBazaar</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press Kit</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 ChitraBazaar Pvt. Ltd. · Made with ❤️ in India 🇮🇳</span>
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <span>All prices in ₹ INR</span>
+      <div class="footer-lang">🌐 EN / हिंदी</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Pill filter
+  document.querySelectorAll('.pill').forEach(p => {
+    p.addEventListener('click', function() {
+      document.querySelectorAll('.pill').forEach(x => x.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // How it works tabs
+  function switchTab(btn, role) {
+    document.querySelectorAll('.how-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
